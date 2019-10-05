@@ -53,4 +53,4 @@ bool Read_Busy_Flag_and_Address(void);
 void Write_Data_to_CG_or_DD_RAM(unsigned char);
 unsigned char Read_Data_from_CG_or_DD_RAM(void);
 void Pulse_Enable_Bit(void);
-
+void Set_Command(unsigned char);
