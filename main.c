@@ -56,7 +56,7 @@ void main(void)
     {
     // Set function to use 8-bit data length, Number_of_lines and font are don't cares.
     Set_Command(0x3C);
-    // long wait to view behavior
+    //  Wait a long time to view behavior.
     __delay_ms(20000);
     }
     // Set function to use 8-bit data length, 2-lines, and 5x7 dots
