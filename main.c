@@ -78,7 +78,7 @@ void main(void)
     __delay_ms(1000);
     //  Set the entry mode.  Increment.
     //Set_Command(0x06);
-    Entry_Mode(1,0);
+    Entry_Mode_Set(1,0);
     //  Wait a long time to observe behavior.
     __delay_ms(1000);
     //  Enable display, cursor, and blink.
