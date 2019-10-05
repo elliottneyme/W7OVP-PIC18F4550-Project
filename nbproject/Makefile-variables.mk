@@ -1,0 +1,13 @@
+#
+# Generated - do not edit!
+#
+# NOCDDL
+#
+CND_BASEDIR=`pwd`
+# XC_18F4550 configuration
+CND_ARTIFACT_DIR_XC_18F4550=dist/XC_18F4550/production
+CND_ARTIFACT_NAME_XC_18F4550=pic18_c_pic18f4550.X.production.hex
+CND_ARTIFACT_PATH_XC_18F4550=dist/XC_18F4550/production/pic18_c_pic18f4550.X.production.hex
+CND_PACKAGE_DIR_XC_18F4550=${CND_DISTDIR}/XC_18F4550/package
+CND_PACKAGE_NAME_XC_18F4550=pic18cpic18f4550.x.tar
+CND_PACKAGE_PATH_XC_18F4550=${CND_DISTDIR}/XC_18F4550/package/pic18cpic18f4550.x.tar
