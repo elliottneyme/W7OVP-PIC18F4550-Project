@@ -540,3 +540,22 @@ void Pulse_Enable_Bit(void)
     E = 0;
     __delay_ms(1);
 }
+
+/*  Function:   Function_Set_Command(unsigned char Command) */
+void Set_Command(unsigned char Command)
+{
+    /*  Set Port D to output.*/
+    TRISD = 0;
+    /*  Initialize Port D   */
+    PORTD = 0x00;
+    /*  Set Port B to output.*/
+    TRISB = 0;
+    PORTB = 0x00;
+    /*  Set Control Bits    */
+    RS = 0;
+    RW = 1;
+    /*  Set Command to Data */
+    Data = Command;
+    
+    Pulse_Enable_Bit();
+}
