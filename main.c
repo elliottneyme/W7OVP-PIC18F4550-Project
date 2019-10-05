@@ -56,32 +56,28 @@ void main(void)
     for(int i =0; i<3 ; i++)
     {
     // Set function to use 8-bit data length, Number_of_lines and font are don't cares.
-    Function_Set(1,0,0);
+    Function_Set_Command(0x3C);
     // long wait to view behavior
     __delay_ms(20000);
     }
     // Set function to use 8-bit data length, 2-lines, and 5x7 dots
-    Function_Set(1,1,0);
+    Function_Set_Command(0x3C);
     //  Wait a long time to view behavior.
     __delay_ms(20000);
     //  Display off, Cursor, and Blink are set to off
-    Display_On_Off_Control(0,0,0);   //(Display,Cursor,Blink)
-    //  Wait a long time to view behavior
-    __delay_ms(20000);
-   //Display_On_Off_Control(1,1,1);
-   //Function_Set(1,1,0);           //(1= 8-bit, 0 =1 line , 0 = 5x7 dots)
+    Function_Set_Command(0x08);
     //  Wait a long time to observe behavior.
     __delay_ms(20000);
     //  Clear the display, send cursor to upper left corner
-    Clear_Display();
+    Function_Set_Command(0x01);
     //  Wait a long time to observe behavior.
     __delay_ms(20000);
     //  Set the entry mode.  Increment.
-    Entry_Mode_Set(1,0);
+    Function_Set_Command(0x06);
     //  Wait a long time to observe behavior.
     __delay_ms(20000);
     //  Enable display, cursor, and blink.
-    Display_On_Off_Control(1,1,1);
+    Function_Set_Command(0x0F);
     
    //__delay_ms(100);
    //Display_On_Off_Control(1,1,1);
