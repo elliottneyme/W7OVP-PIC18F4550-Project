@@ -524,10 +524,10 @@ void Pulse_Enable_Bit(void) {
     
     //  Set Enable bit to high.
     E = 1;
-    __delay_ms(1);
+    __delay_ms(5);
     //  Set Enable bit to low. (Commits instruction.)
     E = 0;
-    __delay_ms(1);
+    __delay_ms(5);
 }
 
 /*  Function:   Function_Set_Command(unsigned char Command) */
