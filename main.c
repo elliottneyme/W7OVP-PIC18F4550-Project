@@ -39,7 +39,6 @@ void main(void)
     /* Enable Port A for input.
      * 
      * Used for stepping through the code. */
-    TRISA = 1;
     /* Configure the oscillator for the device */
     //ConfigureOscillator();
 
