@@ -43,7 +43,7 @@ void main(void)
     //ConfigureOscillator();
 
     /* Initialize I/O and Peripherals for application */
-    //InitApp();
+    InitApp();
     
     //Initialize the LCD module
     //LCD_Module_Initialize();
