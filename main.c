@@ -50,39 +50,39 @@ void main(void)
     
     // Power ON
     // Function Set - do three times
-    __delay_ms(1000);
+    __delay_ms(30);
     
     for(int i =0; i<3 ; i++)
     {
     // Set function to use 8-bit data length, Number_of_lines and font are don't cares.
-    //Set_Command(0x3C);
+    //Set_Instruction(FUNCTION_SET);
     Function_Set(1,1,0);
     //  Wait a long time to view behavior.
-    __delay_ms(1000);
+    __delay_ms(30);
     }
     
     // Set function to use 8-bit data length, 2-lines, and 5x7 dots
-    //Set_Command(0x3C);
+    //Set_Instruction(FUNCTION_SET);
     Function_Set(1,1,0);
     //  Wait a long time to view behavior.
-    __delay_ms(1000);
+    __delay_ms(30);
     //  Display off, Cursor, and Blink are set to off
-    //Set_Command(0x08);
+    //Set_Instruction(DISPLAY_OFF);
     Display_On_Off_Control(0,0,0);
     //  Wait a long time to observe behavior.
-    __delay_ms(1000);
+    __delay_ms(30);
     //  Clear the display, send cursor to upper left corner
-    //Set_Command(0x01);
+    //Set_Instruction(CLEAR_DISPLAY);
     Clear_Display();
     //  Wait a long time to observe behavior.
-    __delay_ms(1000);
+    __delay_ms(30);
     //  Set the entry mode.  Increment.
-    //Set_Command(0x06);
+    //Set_Instruction(ENTRY_MODE);
     Entry_Mode_Set(1,0);
     //  Wait a long time to observe behavior.
-    __delay_ms(1000);
+    __delay_ms(30);
     //  Enable display, cursor, and blink.
-    //Set_Command(0x0F);
+    //Set_Instruction(DISPLAY_ON);
     Display_On_Off_Control(1,1,1);
     
     //Write_Data_to_CG_or_DD_RAM(0x4C);
