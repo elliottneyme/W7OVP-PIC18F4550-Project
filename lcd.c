@@ -6,6 +6,10 @@
  * Software initialization of the the LCD module
  */
 void LCD_Module_Initialize(void) {
+    
+    //  Variable declarations
+    unsigned char address;
+    
     /*  Power On    */
 
     /*  Wait more than 15ms after Vcc = 4.5V    
@@ -46,7 +50,7 @@ void LCD_Module_Initialize(void) {
      *  After this command is written, BF can be checked.
      */
     Function_Set(1, 1, 0);
-    //while(Read_Busy_Flag_and_Address())
+    //while(Read_Busy_Flag_and_Address(address))
     __delay_ms(1);
     /*   
      *   (Interface =  8 bits, Set No. of lines and display font)
@@ -54,7 +58,7 @@ void LCD_Module_Initialize(void) {
     Function_Set(1, 0, 0); /* (8-bits, 1-line, 5 x 7 dots */
 
     /*  Read and wait on BF */
-    while (Read_Busy_Flag_and_Address())
+    while (Read_Busy_Flag_and_Address(address))
         __delay_ms(1);
 
 
@@ -64,14 +68,14 @@ void LCD_Module_Initialize(void) {
     Display_On_Off_Control(0, 0, 0); /* Display, Cursor, and Blink set to off.*/
 
     /*  Read and wait on BF */
-    while (Read_Busy_Flag_and_Address())
+    while (Read_Busy_Flag_and_Address(address))
         __delay_ms(1);
 
     /*  Clear Display   */
     Clear_Display();
 
     /*  Read and wait on BF */
-    while (Read_Busy_Flag_and_Address())
+    while (Read_Busy_Flag_and_Address(address))
         __delay_ms(1);
 
     /*  Entry Mode Set  
@@ -81,7 +85,7 @@ void LCD_Module_Initialize(void) {
     Entry_Mode_Set(1, 0);
 
     /*  Read and wait on BF */
-    while (Read_Busy_Flag_and_Address())
+    while (Read_Busy_Flag_and_Address(address))
         __delay_ms(1);
 
     /*  Display ON
@@ -106,28 +110,15 @@ void LCD_Module_Initialize(void) {
  PIC 18F4550 -> RC0 RC1 RB7 RB6 RB5 RB4 RB3 RB2 RB1 RB0
  Code        -> 0   0   0   0   0   0   0   0   0   1
  */
-void Clear_Display(void) { /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
-    /* Set port B for output.*/
+void Clear_Display(void) {     // Set PORTD to write (RS=0,RW=0)
+    
+    // Set PORTD to write (RS=0,RW=0)
+    PORTD = PORT_WRITE_INSTRUCTION;
+    // Set PORTB for output.
     TRISB = 0;
-
-    // control bits
-    RS = 0;
-    RW = 0;
-    // data bits
-    /*
-    D0 = 1;
-    D1 = 0;
-    D2 = 0;
-    D3 = 0;
-    D4 = 0;
-    D5 = 0;
-    D6 = 0;
-    D7 = 0;
-     */
-    Data = 0x01;
-    // pulse the enable bit to enable instruction
+    // Set PORTB to clear the display.
+    DATA = CLEAR_DISPLAY;
+    // Pulse Enable bit.
     Pulse_Enable_Bit();
 
 }
@@ -142,27 +133,15 @@ void Clear_Display(void) { /* Set port D for output.*/
  PIC 18F4550 -> RC0 RC1 RB7 RB6 RB5 RB4 RB3 RB2 RB1 RB0
  Code        -> 0   0   0   0   0   0   0   0   1   x
  */
-void Return_Home(void) {
-    /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
-    /* Set port B for output.*/
+void Return_Home(void) 
+{
+        
+    // Set PORTD to write (RS=0,RW=0)
+    PORTD = PORT_WRITE_INSTRUCTION;
+    // Set PORTB for output.
     TRISB = 0;
-    Data = 0x02;
-    // control bits
-    RS = 0;
-    RW = 0;
-    // data bits
-    /*D0 = 0; // Don't care.
-    D1 = 0;
-    D2 = 1;
-    D3 = 0;
-    D4 = 0;
-    D5 = 0;
-    D6 = 0;
-    D7 = 0;
-     */
-    // pulse the enable bit to enable instruction
+    DATA = RETURN_HOME;
+    //  Pulse Enable bit.
     Pulse_Enable_Bit();
 }
 
@@ -186,17 +165,13 @@ void Return_Home(void) {
  Code        -> 0   0   0   0   0   0   0   1   I/D S
  */
 void Entry_Mode_Set(bool Increment_Decrement, bool Set) {
-    /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
-    /* Set port B for output.*/
+       
+    // Set PORTD to write (RS=0,RW=0)
+    PORTD = PORT_WRITE_INSTRUCTION;
+    // Set PORTB for output.
     TRISB = 0;
-    Data = 0x00;
-    // control bits
-    RS = 0;
-    RW = 0;
-    // data bits
-    D0 = Set;
+    DATA = ENTRY_MODE_SET;
+    /*D0 = Set;
     D1 = Increment_Decrement;
     D2 = 1;
     D3 = 0;
@@ -204,7 +179,8 @@ void Entry_Mode_Set(bool Increment_Decrement, bool Set) {
     D5 = 0;
     D6 = 0;
     D7 = 0;
-    // pulse the enable bit to enable instruction
+    */
+    // Pulse Enable bit.
     Pulse_Enable_Bit();
 }
 
@@ -228,16 +204,17 @@ void Entry_Mode_Set(bool Increment_Decrement, bool Set) {
  Code        -> 0   0   0   0   0   0   1   D   C   B
  */
 void Display_On_Off_Control(bool Display, bool Cursor, bool Blink) {
-    /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
-    /* Set port B for output.*/
+    
+    //  Set PORTD to write (RS=0,RW=0)
+    PORTD = PORT_WRITE_INSTRUCTION;
+    //  Set PORTB for output.
     TRISB = 0;
-    Data = 0x00;
-    // control bits
+    //  control bits
+    /*
     RS = 0;
     RW = 0;
-    // data bits
+    */
+    //  data bits
     D0 = Blink; // 0 = don't Blink, 1 = Blink
     D1 = Cursor; // 0 = Cursor off, 1 = Cursor on
     D2 = Display; // 0 = Display off, 1 = Display on
@@ -246,7 +223,7 @@ void Display_On_Off_Control(bool Display, bool Cursor, bool Blink) {
     D5 = 0;
     D6 = 0;
     D7 = 0;
-    // pulse the enable bit to enable instruction
+    // Pulse Enable bit.
     Pulse_Enable_Bit();
 }
 
@@ -277,14 +254,17 @@ void Display_On_Off_Control(bool Display, bool Cursor, bool Blink) {
  Code        -> 0   0   0   0   0   1   S/C R/L x   x
  */
 void Cursor_or_Display_Shift(bool Shift_Cursor_or_Display, bool Right_Left) {
-    /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
-    /* Set port B for output.*/
+        
+    //  Set PORTD to write (RS=0,RW=0)
+    PORTD = PORT_WRITE_INSTRUCTION;
+    //  Set PORTB for output.*/
     TRISB = 0;
     // control bits
-    RS = 0;
-    RW = 0;
+    /*
+     * RS = 0;
+     * RW = 0;
+     */
+    
     // data bits
     D0 = 0;
     D1 = 0;
@@ -294,7 +274,7 @@ void Cursor_or_Display_Shift(bool Shift_Cursor_or_Display, bool Right_Left) {
     D5 = 0;
     D6 = 0;
     D7 = 0;
-    // pulse the enable bit to enable instruction
+    //  Pulse Enable bit.
     Pulse_Enable_Bit();
 }
 
@@ -325,15 +305,17 @@ void Cursor_or_Display_Shift(bool Shift_Cursor_or_Display, bool Right_Left) {
  Code        -> 0   0   0   0   1   DL  N   F   x   x
  */
 void Function_Set(bool Data_Length, bool Number_of_Lines, bool Set_Character_Font) {
-    /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
-    /* Set port B for output.*/
-    TRISB = 0;
-    Data = 0x00;
+     
+    //  Set PORTD to write (RS=0,RW=0)
+    PORTD   =   PORT_WRITE_INSTRUCTION;
+    // Set PORTB for output.
+    TRISB   =   0;
+    DATA    =   ZERO_OUT;
     // control bits
+    /*
     RS = 0;
     RW = 0;
+    */
     // data bits
     D0 = 0; // Don't Care
     D1 = 0; // Don't Care
@@ -343,7 +325,7 @@ void Function_Set(bool Data_Length, bool Number_of_Lines, bool Set_Character_Fon
     D5 = 1;
     D6 = 0;
     D7 = 0;
-    // pulse the enable bit to enable instruction
+    //  Pulse Enable bit.
     Pulse_Enable_Bit();
 }
 
@@ -355,20 +337,22 @@ void Function_Set(bool Data_Length, bool Number_of_Lines, bool Set_Character_Fon
     Code        -> 0   0   0   1   A5  A4  A3  A2  A1  A0
  */
 void Set_CG_RAM_Address(unsigned char CG_RAM_Address) {
-    /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
+    
+    // Set PORTD to write (RS=0,RW=0)
+    PORTD   =   PORT_WRITE_INSTRUCTION;
     /* Set port B for output.*/
-    TRISB = 0;
-    Data = 0x00;
+    TRISB   =   0;
+    DATA    =   ZERO_OUT;
     // control bits
+    /*
     RS = 0;
     RW = 0;
+    */
     // data bits
-    Data = CG_RAM_Address;
+    DATA = CG_RAM_Address;
     D6 = 1;
     D7 = 0;
-    // pulse the enable bit to enable instruction
+    //  Pulse Enable bit.
     Pulse_Enable_Bit();
 }
 
@@ -386,19 +370,21 @@ void Set_CG_RAM_Address(unsigned char CG_RAM_Address) {
    Code        ->   0   0   1   A6   A5  A4  A3  A2  A1  A0
  */
 void Set_DD_RAM_Address(unsigned char DD_RAM_Address) {
-    /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
+    
+    // Set PORTD to write (RS=0,RW=0)
+    PORTD = PORT_WRITE_INSTRUCTION;
     /* Set port B for output.*/
     TRISB = 0;
-    Data = 0x00;
+    DATA = ZERO_OUT;
     // control bits
+    /*
     RS = 0;
     RW = 0;
+    */
     // data bits
-    Data = DD_RAM_Address;
+    DATA = DD_RAM_Address;
     D7 = 1;
-    // pulse the enable bit to enable instruction
+    //  Pulse Enable bit.
     Pulse_Enable_Bit();
 }
 
@@ -420,21 +406,22 @@ void Set_DD_RAM_Address(unsigned char DD_RAM_Address) {
  PIC 18F4550 -> RC0 RC1 RB7 RB6 RB5 RB4 RB3 RB2 RB1 RB0
  Code        -> 0   1   BF  A6   A5  A4  A3  A2  A1  A0
  */
-bool Read_Busy_Flag_and_Address(void) {
-    /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
-    // Set port B as input.
+bool Read_Busy_Flag_and_Address(unsigned char address) 
+{
+    
+    //  Set PORTD to write (RS=0,RW=0)
+    PORTD = PORT_READ_INSTRUCTION;
+    //  Set port B as input.
     TRISB = 1;
-    // control bits
+    //  control bits
+    /*
     RS = 0;
     RW = 1;
-
-    // pulse the enable bit to enable instruction
+    */
+    //  Pulse Enable bit.
     Pulse_Enable_Bit();
-
-
-    /*  Return BF   */
+    //  Return BF 
+    address = DATA;
     return D7;
 }
 
@@ -453,18 +440,21 @@ bool Read_Busy_Flag_and_Address(void) {
  Code        -> 1   0   D7  D6  D5  D4  D3  D2  D1  D0
  */
 void Write_Data_to_CG_or_DD_RAM(unsigned char CG_or_DD_RAM) {
-    /* Set port D for output.*/
-    TRISD = 0;
-    PORTD = 0x00;
-    /* Set port B for output.*/
+    
+    //  Set PORTD to read (RS=0,RW=1)
+    PORTD = PORT_WRITE_DATA;
+    //  Set PORTB for output.
     TRISB = 0;
-    Data = 0x00;
+    //  Initialize PORTB
+    DATA = ZERO_OUT;
     // control bits
+    /*
     RS = 1;
     RW = 0;
+    */
     // data bits
-    Data = CG_or_DD_RAM;
-    // pulse the enable bit to enable instruction
+    DATA = CG_or_DD_RAM;
+    //  Pulse Enable bit.
     Pulse_Enable_Bit();
 }
 
@@ -506,18 +496,19 @@ void Write_Data_to_CG_or_DD_RAM(unsigned char CG_or_DD_RAM) {
  */
 unsigned char Read_Data_from_CG_or_DD_RAM(void) {
     
-    //  Set port D for output.
-    TRISD = 0;
-    PORTD = 0x00;
-    // Set port B as input. 
+    //  Set PORTD to read (RS=1,RW=1)
+    PORTD = PORT_READ_DATA;
+    //  Set PORTB as input. 
     TRISB = 1;
     // control bits
+    /*
     RS = 1;
     RW = 1;
-    // pulse the enable bit to enable instruction
+    */
+    //  Pulse Enable bit.
     Pulse_Enable_Bit();
     // Return the contents of Data
-    return Data;
+    return DATA;
 }
 
 void Pulse_Enable_Bit(void) {
@@ -531,20 +522,19 @@ void Pulse_Enable_Bit(void) {
 }
 
 /*  Function:   Function_Set_Command(unsigned char Command) */
-void Set_Command(unsigned char Command) {
+void Set_Instruction(unsigned char instruction) {
     
-    //  Set Port D to output.
-    TRISD = 0;
-    //  Initialize Port D 
-    PORTD = 0x00;
-    //  Set Port B to output
+    //  Set PORTD to write (RS=0,RW=0)
+    PORTD = PORT_WRITE_INSTRUCTION;
+    //  Set PORTB for output
     TRISB = 0;
-    PORTB = 0x00;
     //  Set Control Bits.
+    /*
     RS = 0;
     RW = 1;
+    */
     //  Set Command to Data.
-    Data = Command;
+    DATA = instruction;
     // Pulse the Enable bit.
     Pulse_Enable_Bit();
 }
