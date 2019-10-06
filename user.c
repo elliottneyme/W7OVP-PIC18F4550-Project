@@ -29,7 +29,8 @@ void InitApp(void)
 {   
    
     /* TODO Initialize User Ports/Peripherals/Project here */
-
+    //  Set PORTD as the control line out.
+    TRISD=0;
     /* Setup analog functionality and port direction */
 
     /* Initialize peripherals */
