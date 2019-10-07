@@ -46,45 +46,45 @@ void main(void)
     InitApp();
     
     //Initialize the LCD module
-    //LCD_Module_Initialize();
+    LCD_Module_Initialize();
     
-    // Power ON
-    // Function Set - do three times
-    __delay_ms(30);
     
-    for(int i =0; i<3 ; i++)
+    unsigned char array[16];
+    array[0]    =   'L';
+    array[1]    =   'C';
+    array[2]    =   'D';    
+    array[3]    =   ' ';
+    array[4]    =   'M';
+    array[5]    =   'O';
+    array[6]    =   'D';
+    array[7]    =   'U';
+    array[8]    =   'L';    
+    array[9]    =   'E';
+    array[10]    =   ' ';
+    array[11]    =   'D';
+    array[12]    =   'M';    
+    array[13]    =   'C';
+    array[14]    =   '1';
+    array[15]    =   '6';
+    
+    for(int i = 0; i < 8; i++)
     {
-    // Set function to use 8-bit data length, Number_of_lines and font are don't cares.
-    Set_Instruction(FUNCTION_SET);
-    //Function_Set(1,1,0);
-    //  Wait a long time to view behavior.
-    __delay_ms(5);
+    Wait();
+    Set_Instruction(WRITE_CG_OR_DD_RAM, array[i]);
     }
+    Wait();
     
-    // Set function to use 8-bit data length, 2-lines, and 5x7 dots
-    Set_Instruction(FUNCTION_SET);
-    //Function_Set(1,1,0);
-    //  Wait a long time to view behavior.
-    __delay_ms(100);
-    //Set_Instruction(ZERO_OUT);
-    //  Display off, Cursor, and Blink are set to off
-    Set_Instruction(DISPLAY_OFF);
-    //Display_On_Off_Control(0,0,0);
-    //  Wait a long time to observe behavior.
-    __delay_ms(100);
-    //  Clear the display, send cursor to upper left corner
-    Set_Instruction(CLEAR_DISPLAY);
-    //Clear_Display();
-    //  Wait a long time to observe behavior.
-    __delay_ms(100);
-    //  Set the entry mode.  Increment.
-    Set_Instruction(ENTRY_MODE_SET);
-    //Entry_Mode_Set(1,0);
-    //  Wait a long time to observe behavior.
-    __delay_ms(100);
-    //  Enable display, cursor, and blink.
-    Set_Instruction(DISPLAY_ON);
+    // Write to "2nd line" of DD RAM
+    Set_DD_RAM_Address(0x40);
+   
+    //Wait();
+    Set_Instruction(WRITE_INSTRUCTION, ENTRY_MODE_SET);
     
-
+    for(int i = 8; i < 16; i++)
+    {
+    Wait();
+    Set_Instruction(WRITE_CG_OR_DD_RAM, array[i]);
+    }
+    Wait();
 }
 
