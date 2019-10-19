@@ -5,7 +5,7 @@ Possible inputs for the serial port are a computer terminal or a GPS device.
 Project Owner(s):   Elliott Neyme
 Author(s):          Elliott Neyme
 Hardware Platform:  PIC18F4550 microcontroller
-Debuggers Used:     
+Debuggers Used:     Simulator
 Programmers Used:   Pickit 3
 MPLAB Version:      MPLABX 5.20
 C Compiler Version: XC8 2.05
@@ -23,6 +23,16 @@ by system.c
 
 user.h - Contains parameters and function prototypes used in user.c for user
 level functions, for example, InitApp();
+
+aprs.h  - Contains parameters and function prototypes used in aprs.c for implementing 
+APRS functions.
+
+ax_25.h - Contains parameters and function prototypes used in ax_25.c for implementing
+the AX.25 protocol.  
+
+aprs.c  - Contains function definitions used to implement APRS functions.
+
+ax_25.c - Contains function definitions used to implement the AX.25 link layer protocol.
 
 lcd.c - Contains the function definitions used to program the LCD module.
 

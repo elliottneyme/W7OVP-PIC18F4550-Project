@@ -14,7 +14,7 @@
 
 #include <stdint.h>         /* For uint8_t definition */
 #include <stdbool.h>        /* For true/false definition */
-
+#include "lcd.h"
 #endif
 
 #include "user.h"
@@ -29,14 +29,22 @@ void InitApp(void)
 {   
    
     /* TODO Initialize User Ports/Peripherals/Project here */
-    //  Set PORTD as the control line out.
-    TRISD=0;
+    
     /* Setup analog functionality and port direction */
-
+    
+    //  Set "CONTROL" port, (PORTC) for output.
+    TRISCONTROL =   0;
+    TRISA = 0;
+    
     /* Initialize peripherals */
-
+    
+    //Initialize the LCD module
+    LCD_Module_Initialize();
+    
     /* Configure the IPEN bit (1=on) in RCON to turn on/off int priorities */
 
     /* Enable interrupts */
+    
+    
 }
 
