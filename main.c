@@ -46,48 +46,26 @@ void main(void) {
     InitApp();
     //Emit_Audio_1200Hz_Square();
     //initialize a message to display on the LCD module
-    //unsigned char strmessage[16] = "Hello World";
-    //  Write a message
-    unsigned char array[12];
-    array[0] = 'H';
-    array[1] = 'E';
-    array[2] = 'L';
-    array[3] = 'L';
-    array[4] = 'O';
-    array[5] = ' ';
-    array[6] = 'D';
-    array[7] = 'A';
-    array[8] = 'V';
-    array[9] = 'E';
- /*   array[10] = '';
-    array[11] = '';
-    array[12] = '';
-    array[13] = '';
-    array[14] = '';
-    array[15] = '';
-*/
-    //Wait();
-    //Set_Instruction(WRITE_INSTRUCTION, CLEAR_DISPLAY);
-   // Wait();
+    unsigned char strmessage[16] = "Hello ELMAN";
+    
     // Write to 1st line of DD RAM
-   
     for (int i = 0; i < 8; i++) {
-        Set_Instruction(WRITE_CG_OR_DD_RAM, array[i]);
+        Set_Instruction(WRITE_CG_OR_DD_RAM, strmessage[i]);
         Wait();
     }
 
-/*
     // Write to 2nd line of DD RAM
-    Set_DD_RAM_Address(0x40);
-
+    //Set_DD_RAM_Address(0x40);
+    Set_Instruction(WRITE_INSTRUCTION, 0xC0);
     //Wait();
+   // __delay_ms(20);
     Set_Instruction(WRITE_INSTRUCTION, ENTRY_MODE_SET);
     Wait();
 
     for (int j = 8; j < 11; j++) {
-        Set_Instruction(WRITE_CG_OR_DD_RAM, array[j]);
+        Set_Instruction(WRITE_CG_OR_DD_RAM, strmessage[j]);
         Wait();
     }
-  */ 
+   
 }
 
