@@ -486,7 +486,6 @@ unsigned char Set_Instruction(unsigned char control_char, unsigned char instruct
         
         Pulse_Enable_Bit();
         //  Return the Busy Flag
-        instruction = DATA;
         return D7;
     }
     else    /* control_char == READ_CG_OR_DD_RAM */
