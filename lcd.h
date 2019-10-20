@@ -56,7 +56,7 @@ extern "C" {
 #define RETURN_HOME             0x02    //  Returns display to upper left corner.
 #define ENTRY_MODE_SET          0x06    //  Entry mode is increment, shift display
 #define FUNCTION_SET            0x38    //  8-bit, 2-line, 5x7 dots
-
+#define SET_DD_RAM_ADDRESS      0x80    //  Set the DD RAM Address
 
 //  Function Declarations
 void LCD_Module_Initialize(void);
@@ -73,7 +73,7 @@ void Write_Data_to_CG_or_DD_RAM(unsigned char);
 unsigned char Read_Data_from_CG_or_DD_RAM(void);
 void Pulse_Enable_Bit(void);
 unsigned char Set_Instruction(unsigned char, unsigned char);
-void Wait(void);
+bool Wait(void);
 
 //  4-bit Function Declarations
 void Min_Bit_LCD_Module_Initialize(void);
