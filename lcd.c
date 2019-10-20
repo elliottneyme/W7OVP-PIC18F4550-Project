@@ -483,7 +483,6 @@ unsigned char Set_Instruction(unsigned char control_char, unsigned char instruct
         //  READ from DATA
         TRISDATA = 1;
         //  Pulse Enable bit.
-        
         Pulse_Enable_Bit();
         //  Return the Busy Flag
         return D7;
@@ -500,11 +499,12 @@ unsigned char Set_Instruction(unsigned char control_char, unsigned char instruct
 }
 
 /*  Function:   Wait(void)*/
-void Wait(void)
+bool Wait(void)
 {
     // Delay 1ms when the Busy Flag is read.
     while(Set_Instruction(READ_BUSY_FLAG, ZERO_OUT))
         {
-            __delay_ms(10);
+            __delay_ms(15);
         }
+    return true;
 }
