@@ -48,27 +48,27 @@ void main(void) {
     //initialize a message to display on the LCD module
     //unsigned char strmessage[16] = "Hello World";
     //  Write a message
-    unsigned char array[11];
+    unsigned char array[12];
     array[0] = 'H';
     array[1] = 'E';
     array[2] = 'L';
     array[3] = 'L';
     array[4] = 'O';
     array[5] = ' ';
-    array[6] = 'W';
-    array[7] = 'O';
-    array[8] = 'R';
-    array[9] = 'l';
-    array[10] = 'D';
-/*    array[11] = '';
+    array[6] = 'D';
+    array[7] = 'A';
+    array[8] = 'V';
+    array[9] = 'E';
+ /*   array[10] = '';
+    array[11] = '';
     array[12] = '';
     array[13] = '';
     array[14] = '';
     array[15] = '';
 */
-    Wait();
-    Set_Instruction(WRITE_INSTRUCTION, CLEAR_DISPLAY);
-    Wait();
+    //Wait();
+    //Set_Instruction(WRITE_INSTRUCTION, CLEAR_DISPLAY);
+   // Wait();
     // Write to 1st line of DD RAM
    
     for (int i = 0; i < 8; i++) {
@@ -76,7 +76,7 @@ void main(void) {
         Wait();
     }
 
-
+/*
     // Write to 2nd line of DD RAM
     Set_DD_RAM_Address(0x40);
 
@@ -88,6 +88,6 @@ void main(void) {
         Set_Instruction(WRITE_CG_OR_DD_RAM, array[j]);
         Wait();
     }
-   
+  */ 
 }
 
