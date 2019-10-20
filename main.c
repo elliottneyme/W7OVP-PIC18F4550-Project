@@ -46,7 +46,7 @@ void main(void) {
     InitApp();
     //Emit_Audio_1200Hz_Square();
     //initialize a message to display on the LCD module
-    unsigned char strmessage[16] = "Hello ELMAN";
+    unsigned char strmessage[16] = "Hello ELMAN, you rule.";
     
     // Write to 1st line of DD RAM
     for (int i = 0; i < 8; i++) {
@@ -62,10 +62,10 @@ void main(void) {
     Set_Instruction(WRITE_INSTRUCTION, ENTRY_MODE_SET);
     Wait();
 
-    for (int j = 8; j < 11; j++) {
+    for (int j = 8; j < strlen(strmessage); j++) {
         Set_Instruction(WRITE_CG_OR_DD_RAM, strmessage[j]);
         Wait();
     }
-   
+
 }
 
