@@ -14,7 +14,7 @@
 
 #include <stdint.h>         /* For uint8_t definition */
 #include <stdbool.h>        /* For true/false definition */
-#include "lcd.h"
+#include "./Components/LCD Module/lcd_module.h" /* LCD Module funct/parms */
 #endif
 
 #include "user.h"
@@ -32,9 +32,10 @@ void InitApp(void)
     
     /* Setup analog functionality and port direction */
     
-    //  Set "CONTROL" port, (PORTC) for output.
-    TRISCONTROL =   0;
+    //  Set "PORTC" port, (PORTC) for output.
+    TRISC =   0;
     TRISA = 0;
+    PORTC = PORTD = 0;
     
     /* Initialize peripherals */
     
