@@ -1,0 +1,30 @@
+v 20130925 2
+C 40000 40000 0 0 0 title-B.sym
+C 48500 48300 1 0 0 resistor-2.sym
+{
+T 48900 48650 5 10 0 0 0 0 1
+device=RESISTOR
+T 48700 48600 5 10 1 1 0 0 1
+refdes=R?
+}
+C 48500 47800 1 0 0 resistor-2.sym
+{
+T 48900 48150 5 10 0 0 0 0 1
+device=RESISTOR
+T 48700 48100 5 10 1 1 0 0 1
+refdes=R?
+}
+C 48500 47300 1 0 0 resistor-2.sym
+{
+T 48900 47650 5 10 0 0 0 0 1
+device=RESISTOR
+T 48700 47600 5 10 1 1 0 0 1
+refdes=R?
+}
+C 48500 46700 1 0 0 resistor-2.sym
+{
+T 48900 47050 5 10 0 0 0 0 1
+device=RESISTOR
+T 48700 47000 5 10 1 1 0 0 1
+refdes=R?
+}

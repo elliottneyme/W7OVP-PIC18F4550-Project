@@ -12,7 +12,9 @@
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <asminc-extensions/>
             <make-dep-projects/>
-            <sourceRootList/>
+            <sourceRootList>
+                <sourceRootElem>Components/LCD Module</sourceRootElem>
+            </sourceRootList>
             <confList>
                 <confElem>
                     <name>XC_18F4550</name>

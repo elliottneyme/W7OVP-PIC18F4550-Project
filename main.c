@@ -48,7 +48,7 @@ void main(void) {
     InitApp();
     //  Emit_Audio_1200Hz_Square();
     //  Initialize a message to display on the LCD module
-    char message[40] = "Hello World!!!";
+    char message[40] = "Hello to you today!!!";
     
 
     //  Display the message 

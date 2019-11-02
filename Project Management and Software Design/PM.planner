@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project name="" company="" manager="" phase="" project-start="20191020T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Complete work breakdown structure." note="" work="57600" start="20191020T000000Z" end="20191022T170000Z" work-start="20191021T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="2" name="Flesh out prototypes and functions  of components." note="Write out prototypes and comment according to the UML class diagram." work="57600" start="20191022T170000Z" end="20191024T170000Z" work-start="20191023T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="3" name="Add components to prototype board." note="Includes soldering prototype wires to DB9 connector for serial port, to transformers for audio I/O, and adding MAX chip.&#10;&#10;" work="28800" start="20191024T170000Z" end="20191025T170000Z" work-start="20191025T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="4" name="Code components as deemed necessary and test." note="When the need arises,  code up the functions for the device.&#10;&#9;" work="288000" start="20191025T170000Z" end="20191108T170000Z" work-start="20191028T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
+    </task>
+  </tasks>
+  <resource-groups default_group="1">
+    <group id="1" name="Elliott" admin-name="Elliott" admin-phone="206-915-4904" admin-email="elliott.d.neyme@gmail.com"/>
+  </resource-groups>
+  <resources>
+    <resource group="1" id="1" name="Software Team" short-name="Software" type="1" units="0" email="elliott.d.neyme@gmail.com" note="" std-rate="0"/>
+    <resource group="1" id="2" name="Hardware Team" short-name="Hardware" type="1" units="0" email="elliott.d.neyme@gmail.com" note="" std-rate="0"/>
+    <resource group="1" id="3" name="Management" short-name="Management" type="1" units="0" email="elliott.d.neyme@gmail.com" note="" std-rate="0"/>
+  </resources>
+  <allocations>
+    <allocation task-id="2" resource-id="1" units="100"/>
+    <allocation task-id="4" resource-id="1" units="100"/>
+    <allocation task-id="3" resource-id="2" units="100"/>
+    <allocation task-id="1" resource-id="3" units="100"/>
+  </allocations>
+</project>
